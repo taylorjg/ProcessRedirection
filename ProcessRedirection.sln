@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProcessRedirection", "ProcessRedirection\ProcessRedirection.vcproj", "{0DACE0B0-87DF-4255-B9E4-19A62AD73DCA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestHarness", "TestHarness\TestHarness.vcproj", "{91799B05-55E9-450D-B30F-939563643AC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0DACE0B0-87DF-4255-B9E4-19A62AD73DCA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0DACE0B0-87DF-4255-B9E4-19A62AD73DCA}.Debug|Win32.Build.0 = Debug|Win32
+		{0DACE0B0-87DF-4255-B9E4-19A62AD73DCA}.Release|Win32.ActiveCfg = Release|Win32
+		{0DACE0B0-87DF-4255-B9E4-19A62AD73DCA}.Release|Win32.Build.0 = Release|Win32
+		{91799B05-55E9-450D-B30F-939563643AC4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{91799B05-55E9-450D-B30F-939563643AC4}.Debug|Win32.Build.0 = Debug|Win32
+		{91799B05-55E9-450D-B30F-939563643AC4}.Release|Win32.ActiveCfg = Release|Win32
+		{91799B05-55E9-450D-B30F-939563643AC4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
