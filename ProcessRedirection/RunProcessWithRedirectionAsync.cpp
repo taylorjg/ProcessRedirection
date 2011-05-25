@@ -4,6 +4,22 @@
 
 const static DWORD BUFFER_SIZE = 4096;
 
+/*
+ * Each time we call ReadFileEx(), we need to pass an OVERLAPPED
+ * data structure and a data buffer into which to read. Also, the
+ * completion routine passed to ReadFileEx() is a static member function of
+ * class CRunProcessWithRedirectionAsync. Being a static member function,
+ * the completion routine will not have any sort of link back to the instance
+ * of CRunProcessWithRedirectionAsync to which it pertains. Taking all these
+ * things into consideration, an elegant design is to derive a class from
+ * OVERLAPPED. This effectively allows us to add additional state to the
+ * OVERLAPPED structure. In our case, we add a pointer to the instance of
+ * CRunProcessWithRedirectionAsync and the data buffer too. We then
+ * allocate an instance of this derived class for each call to
+ * ReadFileEx(). Thus, inside the completion routine, we can cast
+ * the LPOVERLAPPED parameter to a pointer to our derived class and we
+ * then have access to all the state that we need.
+ */
 class CMyOverlapped : public OVERLAPPED
 {
 public:
@@ -25,6 +41,9 @@ public:
 
 private:
 	CRunProcessWithRedirectionAsync* m_pThis;
+
+	// ANSI char buffer. 1 byte bigger than BUFFER_SIZE for
+	// the NULL terminator.
 	CHAR m_Buffer[BUFFER_SIZE + 1];
 };
 
