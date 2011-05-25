@@ -3,10 +3,10 @@
 
 This project contains code that:
 
-* launches a child process
-* redirects the child process's stdout and stderr to pipes
-* waits for the child process to exit
-* makes the data written to stdout and stderr available to the caller
+* Launches a child process
+* Redirects the child process's stdout and stderr to pipes
+* Waits for the child process to exit
+* Makes the data written to stdout and stderr available to the caller
 
 The Visual Studio 2008 solution contains 2 Visual C++ projects:
 
@@ -23,6 +23,9 @@ of this functionality:
 
 #TODO
 
-* sort out areas of code duplication e.g. reading of stdout/stderr - the code is very similar so I should be able to make it more elegant
+* Sort out areas of code duplication e.g. reading of stdout/stderr - the code
+is very similar so I should be able to make it more elegant
 
-* since stuff written to stdout and stderr is usually text, it might be convenient to make it available as a string array where each element is a line i.e. split the output on line breaks.
+* Since stuff written to stdout and stderr is usually text, it might be convenient
+to make it available as a string array where each element is a line i.e. split
+the output on line breaks.
