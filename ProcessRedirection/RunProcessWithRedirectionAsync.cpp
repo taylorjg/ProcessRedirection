@@ -97,9 +97,6 @@ DWORD CRunProcessWithRedirectionAsync::RunProcessAndWait (
 		l_dwResult = dwException;
 	}
 
-	l_hProcess.Close ();
-	l_hThread.Close ();
-
 	delete[] l_lpszCopyOfArgs;
 	l_lpszCopyOfArgs = NULL;
 

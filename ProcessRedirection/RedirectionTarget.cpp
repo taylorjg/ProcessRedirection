@@ -7,17 +7,30 @@ const static DWORD BUFFER_SIZE = 4096;
  * Each time we call ReadFileEx(), we need to pass an OVERLAPPED
  * data structure and a data buffer into which to read. Also, the
  * completion routine passed to ReadFileEx() is a static member function of
- * class CRunProcessWithRedirectionAsync. Being a static member function,
+ * class CRedirectionTarget. Being a static member function,
  * the completion routine will not have any sort of link back to the instance
- * of CRunProcessWithRedirectionAsync to which it pertains. Taking all these
+ * of CRedirectionTarget to which it pertains. Taking all these
  * things into consideration, an elegant design is to derive a class from
  * OVERLAPPED. This effectively allows us to add additional state to the
  * OVERLAPPED structure. In our case, we add a pointer to the instance of
- * CRunProcessWithRedirectionAsync and the data buffer too. We then
+ * CRedirectionTarget and the data buffer too. We then
  * allocate an instance of this derived class for each call to
  * ReadFileEx(). Thus, inside the completion routine, we can cast
  * the LPOVERLAPPED parameter to a pointer to our derived class and we
  * then have access to all the state that we need.
+ *
+ * REFERENCE:
+ *
+ * Pattern-Oriented Software Architecture, Volume 2.
+ * - Patterns for Concurrent and Networked Objects
+ *
+ * By :-
+ *
+ *	Douglas Schmidt
+ *	Michael Stal
+ *	Hans Rohnert
+ *	Frank Buschmann
+ *
  */
 class CMyOverlapped : public OVERLAPPED
 {
@@ -26,6 +39,8 @@ public:
 		m_rThis (p_rThis)
 	{
 		// Zero-out the OVERLAPPED part of this instance.
+		// OVERLAPPED is a typedef struct so it does not
+		// have its own constructor.
 		ZeroMemory (this, sizeof (OVERLAPPED));
 
 		// Zero-out the buffer.
@@ -35,7 +50,6 @@ public:
 	LPVOID GetBufferAddress (void) { return m_Buffer; }
 	LPCVOID GetBufferAddress (void) const { return m_Buffer; }
 	DWORD GetBufferSize (void) const { return BUFFER_SIZE; }
-
 	CRedirectionTarget& GetThis (void) { return m_rThis; }
 
 private:
@@ -61,7 +75,7 @@ void CRedirectionTarget::Initialise (const CString& p_strName)
 	(void) _stprintf_s (
 		l_szPipeName,
 		256,
-		_T("\\\\.\\pipe\\ProcessRedirection_%08X_%s"),
+		_T("\\\\.\\pipe\\RedirectionTarget_%08X_%s"),
 		GetCurrentProcessId (),
 		GetName ());
 
