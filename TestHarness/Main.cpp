@@ -25,13 +25,13 @@ int main ()
 {
 	RunProcessWithRedirection_GivenSeparateExeAndArgs_WritesToStdOut ();
 	RunProcessWithRedirection_GivenExeWithNoArgs_WritesToStdOut ();
-	RunProcessWithRedirection_GivenExeThatsWritesLotsToStdOut_WritesLotsToStdOut ();
+	//RunProcessWithRedirection_GivenExeThatsWritesLotsToStdOut_WritesLotsToStdOut ();
 	RunProcessWithRedirection_GivenBogusArgs_WritesToStdErr ();
 	RunProcessWithRedirection_GivenBogusExe_Fails ();
 
 	RunProcessWithRedirectionAsync_GivenSeparateExeAndArgs_WritesToStdOut ();
 	RunProcessWithRedirectionAsync_GivenExeWithNoArgs_WritesToStdOut ();
-	RunProcessWithRedirectionAsync_GivenExeThatsWritesLotsToStdOut_WritesLotsToStdOut ();
+	//RunProcessWithRedirectionAsync_GivenExeThatsWritesLotsToStdOut_WritesLotsToStdOut ();
 	RunProcessWithRedirectionAsync_GivenBogusArgs_WritesToStdErr ();
 	RunProcessWithRedirectionAsync_GivenBogusExe_Fails ();
 
@@ -48,7 +48,7 @@ static void RunProcessWithRedirection_GivenSeparateExeAndArgs_WritesToStdOut (vo
 	(void) _tprintf (_T("RunProcessWithRedirection_GivenSeparateExeAndArgs_WritesToStdOut\n"));
 
 	CRunProcessWithRedirection l_SUT;
-	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), CString (_T("/c dir c:\\")));
+	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), CString (_T("/c dir %SystemDrive%\\")));
 
 	if (l_dwResult == ERROR_SUCCESS) {
 
@@ -138,7 +138,7 @@ static void RunProcessWithRedirection_GivenBogusArgs_WritesToStdErr (void)
 	(void) _tprintf (_T("RunProcessWithRedirection_GivenBogusArgs_WritesToStdErr\n"));
 
 	CRunProcessWithRedirection l_SUT;
-	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), _T("/c dir c:\\this\\is\\\bogus\directory"));
+	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), _T("/c dir %SystemDrive%\\this\\is\\a\\bogus\\directory"));
 
 	if (l_dwResult == ERROR_SUCCESS) {
 
@@ -198,12 +198,12 @@ static void RunProcessWithRedirectionAsync_GivenSeparateExeAndArgs_WritesToStdOu
 	(void) _tprintf (_T("RunProcessWithRedirectionAsync_GivenSeparateExeAndArgs_WritesToStdOut\n"));
 
 	CRunProcessWithRedirectionAsync l_SUT;
-	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), CString (_T("/c dir c:\\")));
+	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), CString (_T("/c dir %SystemDrive%\\")));
 
 	if (l_dwResult == ERROR_SUCCESS) {
 
-		CString l_strStdOut = l_SUT.GetRedirectedStdOut ();
-		CString l_strStdErr = l_SUT.GetRedirectedStdErr ();
+		CString l_strStdOut = l_SUT.GetRedirectedStdOutText ();
+		CString l_strStdErr = l_SUT.GetRedirectedStdErrText ();
 
 		(void) _tprintf(_T("stdout :-\n"));
 		(void) _tprintf(l_strStdOut);
@@ -232,8 +232,8 @@ static void RunProcessWithRedirectionAsync_GivenExeWithNoArgs_WritesToStdOut (vo
 
 	if (l_dwResult == ERROR_SUCCESS) {
 
-		CString l_strStdOut = l_SUT.GetRedirectedStdOut ();
-		CString l_strStdErr = l_SUT.GetRedirectedStdErr ();
+		CString l_strStdOut = l_SUT.GetRedirectedStdOutText ();
+		CString l_strStdErr = l_SUT.GetRedirectedStdErrText ();
 
 		(void) _tprintf(_T("stdout :-\n"));
 		(void) _tprintf(l_strStdOut);
@@ -288,12 +288,12 @@ static void RunProcessWithRedirectionAsync_GivenBogusArgs_WritesToStdErr (void)
 	(void) _tprintf (_T("RunProcessWithRedirectionAsync_GivenBogusArgs_WritesToStdErr\n"));
 
 	CRunProcessWithRedirectionAsync l_SUT;
-	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), _T("/c dir c:\\this\\is\\\bogus\directory"));
+	DWORD l_dwResult = l_SUT.RunProcessAndWait (CombineWithSystemDirectory (_T("cmd.exe")), _T("/c dir %SystemDrive%\\this\\is\\a\\bogus\\directory"));
 
 	if (l_dwResult == ERROR_SUCCESS) {
 
-		CString l_strStdOut = l_SUT.GetRedirectedStdOut ();
-		CString l_strStdErr = l_SUT.GetRedirectedStdErr ();
+		CString l_strStdOut = l_SUT.GetRedirectedStdOutText ();
+		CString l_strStdErr = l_SUT.GetRedirectedStdErrText ();
 
 		(void) _tprintf(_T("stdout :-\n"));
 		(void) _tprintf(l_strStdOut);
@@ -322,8 +322,8 @@ static void RunProcessWithRedirectionAsync_GivenBogusExe_Fails (void)
 
 	if (l_dwResult == ERROR_SUCCESS) {
 
-		CString l_strStdOut = l_SUT.GetRedirectedStdOut ();
-		CString l_strStdErr = l_SUT.GetRedirectedStdErr ();
+		CString l_strStdOut = l_SUT.GetRedirectedStdOutText ();
+		CString l_strStdErr = l_SUT.GetRedirectedStdErrText ();
 
 		(void) _tprintf(_T("stdout :-\n"));
 		(void) _tprintf(l_strStdOut);
