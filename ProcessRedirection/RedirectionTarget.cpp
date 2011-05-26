@@ -24,6 +24,11 @@ const static DWORD BUFFER_SIZE = 4096;
  * Pattern-Oriented Software Architecture, Volume 2.
  * - Patterns for Concurrent and Networked Objects
  *
+ * See :-
+ *
+ *	The Proactor architectural pattern (215)
+ *	The Asynchronous Completion Token design pattern (261)
+ *
  * By :-
  *
  *	Douglas Schmidt
